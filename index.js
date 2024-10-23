@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const { somar, multiplicar, media5, CToF } = require('./service/exercicios');
 
 const app = express();
 
@@ -9,9 +10,8 @@ app.get("/exercicio1/", (req, res) => {
     res.sendfile('./Pages/Exercicio1/index.html')
 })
 app.post("/exercicio1/", (req, res) => {
-    const num1 = Number(req.body.num1);
-    const num2 = Number(req.body.num2);
-    const result = num1 + num2;
+    const result = somar(req.body.num1, req.body.num2);
+
     res.send("Resultado = "+ result)
 })
 
@@ -19,9 +19,7 @@ app.get("/exercicio2/", (req, res) => {
     res.sendfile('./Pages/Exercicio2/index.html')
 })
 app.post("/exercicio2/", (req, res) => {
-    const num1 = Number(req.body.num1);
-    const num2 = Number(req.body.num2);
-    const result = num1 * num2;
+    const result = multiplicar(req.body.num1, req.body.num2)
     res.send("Resultado = "+ result)
 })
 
@@ -29,12 +27,7 @@ app.get("/exercicio3/", (req, res) => {
     res.sendfile('./Pages/Exercicio3/index.html')
 })
 app.post("/exercicio3/", (req, res) => {
-    const peso1 = Number(req.body.peso1);
-    const peso2 = Number(req.body.peso2);
-    const peso3 = Number(req.body.peso3);
-    const peso4 = Number(req.body.peso4);
-    const peso5 = Number(req.body.peso5);
-    const media = (peso1 + peso2 + peso3 + peso4 + peso5) / 5;
+    const media = media5(req.body.peso1,req.body.peso2,req.body.peso3,req.body.peso4,req.body.peso5);
     res.send("Peso médio = "+ media)
 })
 
@@ -42,8 +35,7 @@ app.get("/exercicio4/", (req, res) => {
     res.sendfile('./Pages/Exercicio4/index.html')
 })
 app.post("/exercicio4/", (req, res) => {
-    const tempC = Number(req.body.tempC)
-    const tempF = (9*tempC+160)/5
+    tempF = CToF(req.body.tempC)
     res.send("Temperatura farenheit = "+ tempF+"°F")
 })
 
